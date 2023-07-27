@@ -4,8 +4,10 @@ import textwrap
 
 import requests
 
+from key import API_IMDB_KEY
+
 SAVE_FOLDER_PATH = os.path.join(os.getcwd(), "data")
-API_IMDB_KEY = "d6c4638589c5a886feb52a6f0c3c6faa"
+imdb_api_key = API_IMDB_KEY
 BASE_URL = "https://api.themoviedb.org/3/"
 
 
@@ -56,8 +58,9 @@ def get_movie_details(movie_id, api_key):
         # (geralmente disponível em várias resoluções)
         poster_url = ""
         if "poster_path" in movie_data:
-            poster_url = f"https://image.tmdb.org/t/p/original\
-                {movie_data['poster_path']}"
+            poster_url = (
+                f"https://image.tmdb.org/t/p/original{movie_data['poster_path']}"
+            )
 
         # Extrair informações adicionais
         genres = ", ".join(genre["name"] for genre in movie_data.get("genres", []))
@@ -157,8 +160,8 @@ IMDb Rating: {movie_details["imdb_rating"]}
 def print_menu():
     os.system("cls")
     print("===== Menu =====")
-    print("1. Exibir lista de filmes")
-    print("2. Consultar informações de um filme")
+    print("1. Exibir sua lista de filmes")
+    print("2. Consultar informações de um filme da internet")
     print("3. Sair")
 
 
@@ -180,10 +183,10 @@ def show_movie_list():
 def querry_movie():
     search_term = input("Me diga qual filme deseja consultar as informações: ")
 
-    movie_id = search_movie(API_IMDB_KEY, search_term)
+    movie_id = search_movie(imdb_api_key, search_term)
 
     if movie_id:
-        movie_details = get_movie_details(movie_id, API_IMDB_KEY)
+        movie_details = get_movie_details(movie_id, imdb_api_key)
         if movie_details:
             formatted_details = format_movie_details(movie_details)
             print(formatted_details)
