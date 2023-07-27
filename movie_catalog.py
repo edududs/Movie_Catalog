@@ -112,7 +112,7 @@ def save_movie_to_list(movie_details):
     }
 
     movie_list = []
-    if os.path.exists(file_path):
+    if file_path.exists():
         with open(file_path, "r", encoding="utf8") as file:
             movie_list = json.load(file)
 
@@ -169,9 +169,9 @@ def print_menu():
 
 def show_movie_list():
     os.system("cls")
-    file_path = os.path.join(SAVE_FOLDER_PATH, "movie_list.json")
+    file_path = Path(SAVE_FOLDER_PATH / "movie_list.json")
 
-    if os.path.exists(file_path):
+    if file_path.exists():
         with open(file_path, "r", encoding="utf8") as arquivo:
             movie_list = json.load(arquivo)
 
