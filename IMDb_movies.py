@@ -1,19 +1,21 @@
 import json
 import os
 import textwrap
+from pathlib import Path
 
 import requests
 
 from key import API_IMDB_KEY
 
-SAVE_FOLDER_PATH = os.path.join(os.getcwd(), "data")
+SAVE_FOLDER_PATH = Path() / "data"
 imdb_api_key = API_IMDB_KEY
 BASE_URL = "https://api.themoviedb.org/3/"
+url_language = "pt-BR"
 
 
 def search_movie(api_key, query):
     base_url = f"{BASE_URL}search/movie"
-    params = {"api_key": api_key, "query": query, "language": "pt-BR"}
+    params = {"api_key": api_key, "query": query, "language": url_language}
 
     response = requests.get(base_url, params=params)
 
@@ -39,7 +41,7 @@ def get_movie_details(movie_id, api_key):
     params = {
         "api_key": api_key,
         "append_to_response": "videos,images",
-        "language": "pt-BR",
+        "language": url_language,
     }
 
     response = requests.get(base_url, params=params)
@@ -92,8 +94,8 @@ def get_movie_details(movie_id, api_key):
 
 
 def save_movie_to_list(movie_details):
-    os.makedirs(SAVE_FOLDER_PATH, exist_ok=True)
-    file_path = os.path.join(SAVE_FOLDER_PATH, "movie_list.json")
+    SAVE_FOLDER_PATH.mkdir(exist_ok=True)
+    file_path = Path(SAVE_FOLDER_PATH / "movie_list.json")
 
     # Criar um dicionário com as informações do filme
     movie_info = {
@@ -208,7 +210,7 @@ while True:
     elif choice == "3":
         break
     else:
-        print("Opção inválida, Por favor, escolha uma opção válida")
+        print("Opção inválida!\nPor favor, insira uma opção válida.")
     input()
 
 print("Programa encerrado.")
