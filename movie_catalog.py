@@ -1,6 +1,6 @@
 import os
 
-import movie_functions
+import func.movie_functions as movie_functions
 
 
 def print_menu():
