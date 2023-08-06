@@ -3,12 +3,11 @@ import os
 import textwrap
 from pathlib import Path
 
-import requests
+import pip._vendor.requests as requests
 
-from key import API_IMDB_KEY
-
+API_KEY = os.getenv("API_IMDB_KEY")
 SAVE_FOLDER_PATH = Path() / "data"
-imdb_api_key = API_IMDB_KEY
+imdb_api_key = API_KEY
 BASE_URL = "https://api.themoviedb.org/3/"
 url_language = "pt-BR"
 
@@ -27,13 +26,46 @@ def search_movie(api_key, query):
 
             # Você pode modificar esta função para lidar com vários
             # resultados, se necessário.
-            return results[0]["id"]
+            movies = []
+            for dicts in results:
+                move_info = {
+                    "title": dicts["title"],
+                    "id": dicts["id"],
+                    "year": dicts["release_date"][:4],
+                }
+                movies.append(move_info)
+            return movies
         else:
             print("Nenhum filme encontrado com o termo de pesquisa.")
             return None
     else:
         print("Erro na pesquisa do filme.")
         return None
+
+
+def choose_movie(movies):
+    while True:
+        for index, movie in enumerate(movies):
+            print(f'{index+1}. {movie["title"]}\nYear: {movie["year"]}')
+
+        chosen_movie_index = int(input("Escolha o número do filme desejado: "))
+
+        # Verifica se o número escolhido está entro dos limites válidos
+        if 1 <= chosen_movie_index <= len(movies):
+            # Obtém o ID do filme escolhido
+            chosen_movie_id = movies[chosen_movie_index - 1]["id"]
+            print(f"ID do filme escolhido: {chosen_movie_id}")
+            return chosen_movie_id
+
+        elif chosen_movie_index > len(movies):
+            os.system("cls")
+            print("\nEscolha um índice dentro das opções fornecidas")
+
+        else:
+            print(
+                "\nHouve algum erro ao selecionar o ID do filme desejado.\
+            \nCertifique-se de que escolheu o corretamente"
+            )
 
 
 def get_movie_details(movie_id, api_key):
@@ -153,7 +185,7 @@ Nome do Filme: {movie_details["name"]}
 Ano de Lançamento: {movie_details["year"]}
 Enredo (Plot): {textwrap.fill(movie_details["plot"], width=80)}...
 URL da Imagem do Poster: {movie_details["image_url"]}
-IMDb Rating: {movie_details["imdb_rating"]}
+IMDb Rating: {movie_details["imdb_rating"]} {"💙️" if float(movie_details["imdb_rating"]) > 5.0 else "🌈️"}
 
 """
     return formatted_details
@@ -177,8 +209,8 @@ def show_movie_list():
 def querry_movie():
     search_term = input("Me diga qual filme deseja consultar as informações: ")
 
-    movie_id = search_movie(imdb_api_key, search_term)
-
+    response_search_movie = search_movie(imdb_api_key, search_term)
+    movie_id = choose_movie(response_search_movie)
     if movie_id:
         movie_details = get_movie_details(movie_id, imdb_api_key)
         if movie_details:
