@@ -19,16 +19,9 @@ Antes de usar o script, você precisará atender aos seguintes requisitos:
 ## Como Usar
 
 1. Clone o repositório: `git clone https://github.com/seu-usuario/movie-catalog-script.git`
-2. Crie uma conta e obtenha uma chave de API do IMDb.
-3. Crie um arquivo `key.py` na mesma pasta do script e adicione sua chave de API conforme o exemplo abaixo:
-
-```python
-# key.py
-API_IMDB_KEY = "sua_chave_de_api_aqui"
-```
-
-4. Execute o script: `python movie_catalog.py`
-5. Siga as instruções do menu para buscar informações sobre filmes e salvar na lista.
+2. Defina a chave de API do IMDb como variável de ambiente com o nome `API_IMDB_KEY`.
+3. Execute o script: `python movie_catalog.py`
+4. Siga as instruções do menu para buscar informações sobre filmes e salvar na lista.
 
 ## Lista de Filmes
 
@@ -50,5 +43,3 @@ Este projeto está licenciado sob a [Licença MIT](LICENSE).
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para criar pull requests ou reportar problemas.
-
-Espero que esse README atenda às suas necessidades! Sinta-se à vontade para personalizá-lo de acordo com as especificidades do seu projeto. Obrigado por compartilhar o seu script com a comunidade e bom trabalho no desenvolvimento da sua aplicação!
