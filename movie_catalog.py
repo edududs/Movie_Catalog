@@ -4,6 +4,9 @@ import func.movie_functions as movie_functions
 
 
 def print_menu():
+    """
+    Prints the menu options for the user to choose from.
+    """
     os.system("cls")
     print("===== Menu =====")
     print("1. Exibir sua lista de filmes")

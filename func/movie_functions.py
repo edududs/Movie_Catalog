@@ -13,6 +13,21 @@ url_language = "pt-BR"
 
 
 def search_movie(api_key, query):
+    """
+    Searches for a movie using the specified API key and query.
+
+    Parameters:
+        - api_key (str): The API key to authenticate the request.
+        - query (str): The search query for the movie.
+
+    Returns:
+        - list: A list of dictionaries containing information about the movies found. Each dictionary
+          contains the following keys:
+          - title (str): The title of the movie.
+          - id (int): The ID of the movie.
+          - year (str): The release year of the movie.
+          Returns None if no movie is found or if there is an error in the request.
+    """
     base_url = f"{BASE_URL}search/movie"
     params = {"api_key": api_key, "query": query, "language": url_language}
 
@@ -44,6 +59,18 @@ def search_movie(api_key, query):
 
 
 def choose_movie(movies):
+    """
+    Prompts the user to choose a movie from a given list of movies and returns the ID of the chosen movie.
+
+    Args:
+        movies (list): A list of dictionaries representing movies. Each dictionary contains the title, year, and ID of a movie.
+
+    Returns:
+        int: The ID of the chosen movie.
+
+    Raises:
+        ValueError: If the user enters an invalid movie index.
+    """
     while True:
         for index, movie in enumerate(movies):
             print(f'{index+1}. {movie["title"]}\nYear: {movie["year"]}')
@@ -69,6 +96,16 @@ def choose_movie(movies):
 
 
 def get_movie_details(movie_id, api_key):
+    """
+    Retrieves details of a movie using its ID.
+
+    Args:
+        movie_id (int): The ID of the movie.
+        api_key (str): The API key for accessing the movie details.
+
+    Returns:
+        dict or None: A dictionary containing the movie details including name, year, plot, image URL, IMDb rating, popularity, genres, languages, production companies, and production countries. Returns None if the movie details cannot be obtained.
+    """
     base_url = f"{BASE_URL}movie/{movie_id}"
     params = {
         "api_key": api_key,
@@ -126,6 +163,29 @@ def get_movie_details(movie_id, api_key):
 
 
 def save_movie_to_list(movie_details):
+    """
+    Saves a movie to the movie list.
+
+    Args:
+        movie_details (dict): A dictionary containing the details of the movie.
+            It should have the following keys:
+            - "name" (str): The name of the movie.
+            - "year" (int): The year of release of the movie.
+            - "plot" (str): The plot of the movie.
+            - "image_url" (str): The URL of the movie's image.
+            - "imdb_rating" (float): The IMDb rating of the movie.
+            - "popularity" (float): The popularity score of the movie.
+            - "genres" (list[str]): A list of genres associated with the movie.
+            - "languages" (list[str]): A list of languages of the movie.
+            - "production_companies" (list[str]): A list of production companies involved in the movie.
+            - "production_countries" (list[str]): A list of production countries of the movie.
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
     SAVE_FOLDER_PATH.mkdir(exist_ok=True)
     file_path = Path(SAVE_FOLDER_PATH / "movie_list.json")
 
@@ -168,6 +228,23 @@ def save_movie_to_list(movie_details):
 
 
 def is_movie_in_list(movie_info, movie_list):
+    """
+    Check if a movie is in a given movie list.
+
+    Parameters:
+        movie_info (dict): A dictionary containing information about the movie to be checked.
+            It should have the following keys:
+                - name (str): The name of the movie.
+                - year (int): The year the movie was released.
+
+        movie_list (list): A list of dictionaries, where each dictionary represents a movie.
+            Each dictionary should have the following keys:
+                - name (str): The name of the movie.
+                - year (int): The year the movie was released.
+
+    Returns:
+        bool: True if the movie is in the list, False otherwise.
+    """
     for movie_entry in movie_list:
         # Verificar se o nome e o ano de lançamento são iguais
         if (
@@ -180,6 +257,21 @@ def is_movie_in_list(movie_info, movie_list):
 
 
 def format_movie_details(movie_details):
+    """
+    Formats the movie details into a string.
+
+    Parameters:
+        movie_details (dict): A dictionary containing the details of a movie.
+            The dictionary should have the following keys:
+            - "name" (str): The name of the movie.
+            - "year" (str): The year of release of the movie.
+            - "plot" (str): The plot of the movie.
+            - "image_url" (str): The URL of the movie's poster image.
+            - "imdb_rating" (str): The IMDb rating of the movie.
+
+    Returns:
+        str: The formatted movie details as a string.
+    """
     formatted_details = f"""\
 Nome do Filme: {movie_details["name"]}
 Ano de Lançamento: {movie_details["year"]}
@@ -192,6 +284,17 @@ IMDb Rating: {movie_details["imdb_rating"]} {"💙️" if float(movie_details["i
 
 
 def show_movie_list():
+    """
+    Display the movie list.
+
+    This function clears the console screen and displays the list of movies. It first checks if the "movie_list.json" file exists in the specified folder. If the file exists, it reads the contents of the file and prints each movie's name and year. If the file does not exist, it prints a message indicating that the movie list is empty.
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
     os.system("cls")
     file_path = Path(SAVE_FOLDER_PATH / "movie_list.json")
 
@@ -207,6 +310,12 @@ def show_movie_list():
 
 
 def querry_movie():
+    """
+    Queries a movie using a search term provided by the user and displays the movie details.
+    
+    Returns:
+    None
+    """
     search_term = input("Me diga qual filme deseja consultar as informações: ")
 
     response_search_movie = search_movie(imdb_api_key, search_term)
