@@ -1,45 +1,42 @@
 # Movie Catalog Script
 
-O Movie Catalog Script é uma ferramenta que utiliza a API do IMDb para buscar informações sobre filmes, incluindo nome, ano de lançamento, nota do IMDb e outros detalhes. Com esse script, você pode automatizar a coleta de informações sobre filmes e criar listas personalizadas com detalhes relevantes.
+Welcome to the Movie Catalog Script documentation! The Movie Catalog Script is a tool that utilizes the IMDb API to fetch information about movies, including title, release year, IMDb rating, and other details. With this script, you can automate the process of collecting movie information and create custom lists with relevant details.
 
-## Funcionalidades
+## Features
+- **Automated Search:** The script allows you to search for movie information using the IMDb API. Just input the movie title, and the script returns details such as title, release year, plot summary, IMDb rating, and popularity.
+- **Saving to List:** You can save the details of a movie to a list, which is stored in a JSON file. This enables you to create a customized list of movies with their relevant information.
+- **Advanced Search:** The script supports advanced searching for movies based on title and release year.
+- **Integration with IMDb API:** The script utilizes the IMDb API to fetch up-to-date movie information.
 
-- **Busca Automática:** O script permite buscar informações sobre filmes utilizando a API do IMDb. Basta inserir o nome do filme e o script retorna detalhes como título, ano de lançamento, sinopse, classificação no IMDb e popularidade.
-- **Salvando na Lista:** Você pode salvar os detalhes de um filme em uma lista, que é armazenada em um arquivo JSON. Isso permite criar uma lista personalizada de filmes com suas informações relevantes.
-- **Busca Avançada:** O script permite realizar uma busca avançada por filmes, considerando o nome e o ano de lançamento.
-- **Integração com a API do IMDb:** O script utiliza a API do IMDb para obter informações atualizadas sobre os filmes.
+## Requirements
+Before using the script, you need to meet the following requirements:
 
-## Requisitos
+- Python 3.x installed on your system.
+- An IMDb API key. (You can obtain a free IMDb API key from the IMDb website.)
 
-Antes de usar o script, você precisará atender aos seguintes requisitos:
+## How to Use
+1. Clone the repository: `git clone https://github.com/dududs/movie-catalog-script.git`
+2. Set your IMDb API key as an environment variable named `API_IMDB_KEY`.
+3. Run the script: `python movie_catalog.py`
+4. Follow the menu instructions to search for movie information and save it to the list.
 
-- Python 3.x instalado no seu sistema.
-- Uma chave de API do IMDb. (Você pode obter uma chave de API gratuitamente no site do IMDb.)
+## Movie List
+The script allows you to create a personalized list of movies. The list is stored in a JSON file named `movie_list.json`. You can edit and view your movie list whenever you like.
 
-## Como Usar
+## Notes
+- Ensure you have an internet connection so that the script can fetch movie data from the IMDb API.
+- This script is a demonstration project and can be adapted and extended to meet your specific needs.
 
-1. Clone o repositório: `git clone https://github.com/seu-usuario/movie-catalog-script.git`
-2. Defina a chave de API do IMDb como variável de ambiente com o nome `API_IMDB_KEY`.
-3. Execute o script: `python movie_catalog.py`
-4. Siga as instruções do menu para buscar informações sobre filmes e salvar na lista.
+## License
+This project is licensed under the [MIT License](LICENSE).
 
-## Lista de Filmes
+## Credits
+Developed by Eduardo Lima.
 
-O script permite criar uma lista de filmes personalizada. A lista é armazenada em um arquivo JSON chamado `movie_list.json`. Você pode editar e visualizar sua lista de filmes sempre que desejar.
+## Contributions
+Contributions are welcome! Feel free to create pull requests or report issues.
 
-## Observações
+## Contact
+Email: dudulj@live.com
 
-- Certifique-se de possuir uma conexão com a internet para que o script possa buscar os dados dos filmes na API do IMDb.
-- Este script é um projeto de demonstração e pode ser adaptado e estendido para atender às suas necessidades específicas.
-
-## Licença
-
-Este projeto está licenciado sob a [Licença MIT](LICENSE).
-
-## Autor
-
-- Eduardo Lima (@edududs)
-
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para criar pull requests ou reportar problemas.
+GitHub: edududs
